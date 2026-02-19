@@ -20,6 +20,7 @@ body{
   justify-content:center;
   align-items:center;
 }
+
 body::before{
   content:"";
   position:fixed;
@@ -60,7 +61,6 @@ header div span:last-child{
   font-size:11px;color:#c2d4ff;
 }
 
-/* CONTATTO */
 .card{
   background:rgba(2,6,23,.6);
   border:1px solid var(--line);
@@ -72,9 +72,19 @@ header div span:last-child{
 }
 .card .meta{
   font-size:12px;margin-bottom:10px;
-  color:#e5edff;
+  line-height:1.5;
 }
 .card a{color:#d1e3ff;text-decoration:none}
+
+.profile-photo{
+  float:right;
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  object-fit:cover;
+  margin:0 0 8px 10px;
+  border:2px solid rgba(255,255,255,.6);
+}
 
 .actions{
   display:flex;
@@ -100,33 +110,19 @@ header div span:last-child{
   background:#fff;
 }
 
-/* HERO */
-.hero{
-  text-align:center;
-}
-.hero h1{
-  font-size:24px;
-  margin:6px 0;
-}
+.hero{text-align:center;}
+.hero h1{font-size:24px;margin:6px 0;}
 .hero h1 span{color:var(--blue)}
-.hero p{
-  font-size:13px;color:#d1e3ff;
-}
+.hero p{font-size:13px;color:#d1e3ff;}
 
-/* VIDEO */
 .video-box{
   background:#000;
   border-radius:16px;
   overflow:hidden;
   margin:8px 0;
 }
-video{
-  width:100%;
-  display:block;
-}
-.video-controls{
-  display:flex;
-}
+video{width:100%;display:block;}
+.video-controls{display:flex;}
 .video-controls button{
   flex:1;
   padding:10px;
@@ -137,7 +133,6 @@ video{
   cursor:pointer;
 }
 
-/* CTA AI */
 .cta a{
   display:block;
   width:100%;
@@ -177,39 +172,45 @@ footer{
   </div>
 </header>
 
-<!-- CONTATTO -->
 <section class="card">
   <h2>SERENA PALOMBI</h2>
+
+  <img src="profilo.jpeg" alt="Serena Palombi" class="profile-photo">
+
   <div class="meta">
-    Telefono: <a href="tel:+393935115026">3935115026</a><br>
-    Mail: <a href="mailto:serena.palombi.88@gmail.com">serena.palombi.88@gmail.com</a><br>
-    Mail aziendale: <a href="mailto:serenaeantoniosrls@gmail.com">serenaeantoniosrls@gmail.com</a><br>
-    <strong>SERENA &amp; ANTONIO SRLS</strong> – P.IVA 16662561006<br>
-    Via Salvo D’Acquisto 40, Guidonia Montecelio, 00012 (RM)
+    <strong>CARD STANDARD</strong><br><br>
+    Email: <a href="mailto:serena.palombi.88@gmail.com">serena.palombi.88@gmail.com</a><br>
+    Email (azienda): <a href="mailto:serenaeantoniosrls@gmail.com">serenaeantoniosrls@gmail.com</a><br>
+    Telefono: <a href="tel:+393935115026">3935115026</a>
   </div>
 
   <div class="actions">
     <a class="btn" href="tel:+393935115026"><span class="dot"></span>Chiama</a>
     <a class="btn" href="mailto:serena.palombi.88@gmail.com"><span class="dot"></span>Email</a>
-    <a class="btn" href="mailto:serenaeantoniosrls@gmail.com"><span class="dot"></span>Email aziendale</a>
-    <a class="btn" href="https://www.facebook.com/share/1EDMug2mr1/" target="_blank" rel="noopener"><span class="dot"></span>Facebook</a>
-    <a class="btn" href="https://www.linkedin.com/in/serena-palombi-4a78a4b9" target="_blank" rel="noopener"><span class="dot"></span>LinkedIn</a>
+    <a class="btn" href="mailto:serenaeantoniosrls@gmail.com"><span class="dot"></span>Email Azienda</a>
 
-    <!-- NUOVI CAMPI -->
-    <a class="btn" href="https://opexis.digital/?ref=32" target="_blank" rel="noopener"><span class="dot"></span>I nostri Servizi</a>
-    <a class="btn" href="https://opexis.digital/prodotto/aboutme-ai-card-personalizzazione-nome/?ref=32" target="_blank" rel="noopener"><span class="dot"></span>About Me AI Card</a>
+    <a class="btn" href="https://www.facebook.com/share/1EDMug2mr1/" target="_blank"><span class="dot"></span>Facebook</a>
+    <a class="btn" href="https://www.linkedin.com/in/serena-palombi-4a78a4b9" target="_blank"><span class="dot"></span>LinkedIn</a>
 
-    <button class="btn" onclick="saveContact()"><span class="dot"></span>Salva in rubrica</button>
+    <a class="btn" href="https://opexis.digital/?ref=32" target="_blank"><span class="dot"></span>I nostri Servizi</a>
+    <a class="btn" href="https://opexis.digital/prodotto/aboutme-ai-card-personalizzazione-nome/?ref=32" target="_blank"><span class="dot"></span>About Me AI Card</a>
+
+    <!-- DOWNLOAD CV -->
+    <a class="btn" href="Presentazione Serena Palombi.pdf" download="Serena_Palombi_CV.pdf">
+      <span class="dot"></span>Scarica CV
+    </a>
+
+    <button class="btn" onclick="saveContact()">
+      <span class="dot"></span>Salva in rubrica
+    </button>
   </div>
 </section>
 
-<!-- HERO -->
 <section class="hero">
   <h1>Il marketing <span>con AI</span></h1>
 
-  <!-- VIDEO -->
   <div class="video-box">
-    <video id="introVideo" autoplay muted playsinline>
+    <video id="introVideo" autoplay playsinline muted>
       <source src="video_intro.mp4" type="video/mp4">
     </video>
 
@@ -222,16 +223,14 @@ footer{
   <p>Scopri Twynet: social professionale, AI, formazione e opportunità di business.</p>
 </section>
 
-<!-- CTA AI -->
 <section class="cta">
   <a href="ai.html">💬 Parla con l’AI</a>
 </section>
 
-<!-- SOCIAL OPEXIS -->
 <section class="socials">
-  <a class="btn" href="https://www.instagram.com/opexis.digital/" target="_blank" rel="noopener"><span class="dot"></span>Opexis IG</a>
-  <a class="btn" href="https://www.facebook.com/profile.php?id=61580851595121" target="_blank" rel="noopener"><span class="dot"></span>Opexis FB</a>
-  <a class="btn" href="https://www.linkedin.com/company/opexis/" target="_blank" rel="noopener"><span class="dot"></span>LinkedIn</a>
+  <a class="btn" href="https://www.instagram.com/opexis.digital/" target="_blank"><span class="dot"></span>Opexis IG</a>
+  <a class="btn" href="https://www.facebook.com/profile.php?id=61580851595121" target="_blank"><span class="dot"></span>Opexis FB</a>
+  <a class="btn" href="https://www.linkedin.com/company/opexis/" target="_blank"><span class="dot"></span>LinkedIn</a>
 </section>
 
 <footer>
@@ -259,18 +258,15 @@ function stopVideo(){
 function saveContact(){
   const vcf=`BEGIN:VCARD
 VERSION:3.0
-FN:SERENA PALOMBI
+FN:Serena Palombi
 N:Palombi;Serena;;;
+TITLE:CARD STANDARD
 TEL;TYPE=CELL:+393935115026
 EMAIL;TYPE=INTERNET:serena.palombi.88@gmail.com
-EMAIL;TYPE=WORK:serenaeantoniosrls@gmail.com
-ORG:SERENA & ANTONIO SRLS
-ADR;TYPE=WORK:;;Via Salvo D’Acquisto 40;Guidonia Montecelio;RM;00012;Italia
-NOTE:P.IVA 16662561006
-URL:https://opexis.digital/?ref=32
-URL:https://opexis.digital/prodotto/aboutme-ai-card-personalizzazione-nome/?ref=32
-X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/share/1EDMug2mr1/
-X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/serena-palombi-4a78a4b9
+EMAIL;TYPE=INTERNET:serenaeantoniosrls@gmail.com
+URL:https://www.facebook.com/share/1EDMug2mr1/
+URL:https://www.linkedin.com/in/serena-palombi-4a78a4b9
+NOTE:CARD STANDARD | Opexis ref=32
 END:VCARD`;
 
   const blob=new Blob([vcf],{type:"text/vcard"});
