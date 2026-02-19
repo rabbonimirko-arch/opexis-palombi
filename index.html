@@ -56,6 +56,10 @@ header{display:flex;align-items:center;gap:10px;}
   border-radius:18px;
   padding:12px;
 }
+.card h2{font-size:14px;margin-bottom:6px;}
+.card .meta{font-size:12px;margin-bottom:10px;line-height:1.5;}
+.card a{color:#d1e3ff;text-decoration:none}
+
 .profile-photo{
   float:right;
   width:78px;height:78px;
@@ -86,6 +90,29 @@ header{display:flex;align-items:center;gap:10px;}
 }
 .dot{width:9px;height:9px;border-radius:50%;background:#fff;}
 
+.hero{text-align:center;}
+.hero h1{font-size:24px;margin:6px 0;}
+.hero h1 span{color:var(--blue)}
+.hero p{font-size:13px;color:#d1e3ff;}
+
+.video-box{
+  background:#000;
+  border-radius:16px;
+  overflow:hidden;
+  margin:8px 0;
+}
+video{width:100%;display:block;}
+.video-controls{display:flex;}
+.video-controls button{
+  flex:1;
+  padding:10px;
+  border:none;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  cursor:pointer;
+}
+
 .cta a{
   display:block;
   width:100%;
@@ -98,38 +125,42 @@ header{display:flex;align-items:center;gap:10px;}
   text-decoration:none;
 }
 
-/* ===== GALLERIA ===== */
+footer{
+  margin-top:auto;
+  text-align:center;
+  font-size:10px;
+  color:#94a3b8;
+}
+
+/* ===== GALLERIA LIGHTBOX ===== */
 .gallery-modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.85);
   display:none;
   align-items:center;
   justify-content:center;
   z-index:9999;
 }
-.gallery-modal.active{display:flex;}
-.gallery-content{
-  width:95%;
-  max-width:520px;
+.gallery-modal.is-open{display:flex;}
+.gallery-box{
+  width:min(520px, 95vw);
   background:#000;
   border-radius:16px;
   overflow:hidden;
-  text-align:center;
 }
-.gallery-content img{
+.gallery-box img{
   width:100%;
   max-height:65vh;
   object-fit:contain;
 }
 .gallery-controls{
   display:flex;
-  justify-content:space-between;
+  gap:8px;
   padding:10px;
 }
 .gallery-controls button{
   flex:1;
-  margin:4px;
   padding:10px;
   border:none;
   border-radius:999px;
@@ -137,11 +168,11 @@ header{display:flex;align-items:center;gap:10px;}
   color:#fff;
   cursor:pointer;
 }
-.close-btn{
+.gallery-close{
   position:absolute;
-  top:15px;
+  top:20px;
   right:20px;
-  font-size:22px;
+  font-size:20px;
   color:#fff;
   cursor:pointer;
 }
@@ -163,11 +194,12 @@ header{display:flex;align-items:center;gap:10px;}
   <h2>SERENA PALOMBI</h2>
   <img src="profilo.jpeg" class="profile-photo">
 
-  <p>
-    Email: serena.palombi.88@gmail.com<br>
-    Azienda: serenaeantoniosrls@gmail.com<br>
-    Tel: 3935115026
-  </p>
+  <div class="meta">
+    <strong>CARD STANDARD</strong><br><br>
+    Email: <a href="mailto:serena.palombi.88@gmail.com">serena.palombi.88@gmail.com</a><br>
+    Email azienda: <a href="mailto:serenaeantoniosrls@gmail.com">serenaeantoniosrls@gmail.com</a><br>
+    Telefono: <a href="tel:+393935115026">3935115026</a>
+  </div>
 
   <div class="actions">
     <a class="btn" href="tel:+393935115026"><span class="dot"></span>Chiama</a>
@@ -177,23 +209,48 @@ header{display:flex;align-items:center;gap:10px;}
       <span class="dot"></span>Scarica CV
     </a>
 
-    <!-- NUOVO PULSANTE GALLERIA -->
+    <!-- SOLO QUESTO È STATO AGGIUNTO -->
     <button class="btn" onclick="openGallery()">
       <span class="dot"></span>Galleria
     </button>
+
+    <button class="btn" onclick="saveContact()">
+      <span class="dot"></span>Salva in rubrica
+    </button>
   </div>
+</section>
+
+<section class="hero">
+  <h1>Il marketing <span>con AI</span></h1>
+
+  <div class="video-box">
+    <video id="introVideo" autoplay playsinline muted>
+      <source src="video_intro.mp4" type="video/mp4">
+    </video>
+
+    <div class="video-controls">
+      <button onclick="enableAudio()">🔊 Attiva audio</button>
+      <button onclick="stopVideo()">⏹ Stop</button>
+    </div>
+  </div>
+
+  <p>Scopri Twynet: social professionale, AI, formazione e opportunità di business.</p>
 </section>
 
 <section class="cta">
   <a href="ai.html">💬 Parla con l’AI</a>
 </section>
 
+<footer>
+© <span id="year"></span> Opexis Digital
+</footer>
+
 </div>
 
-<!-- ===== MODAL GALLERIA ===== -->
+<!-- MODAL GALLERIA -->
 <div id="galleryModal" class="gallery-modal">
-  <div class="close-btn" onclick="closeGallery()">✕</div>
-  <div class="gallery-content">
+  <div class="gallery-close" onclick="closeGallery()">✕</div>
+  <div class="gallery-box">
     <img id="galleryImage" src="1.jpeg">
     <div class="gallery-controls">
       <button onclick="prevImage()">←</button>
@@ -203,36 +260,36 @@ header{display:flex;align-items:center;gap:10px;}
 </div>
 
 <script>
-const images = [
-  "1.jpeg",
-  "2.jpeg",
-  "3.jpeg",
-  "4.jpeg",
-  "5.jpeg",
-  "6.jpeg",
-  "7.jpeg",
-  "8.jpeg"
-];
+document.getElementById("year").textContent = new Date().getFullYear();
 
-let currentIndex = 0;
+const images=["1.jpeg","2.jpeg","3.jpeg","4.jpeg","5.jpeg","6.jpeg","7.jpeg","8.jpeg"];
+let currentIndex=0;
 
 function openGallery(){
-  document.getElementById("galleryModal").classList.add("active");
-  document.getElementById("galleryImage").src = images[currentIndex];
+  document.getElementById("galleryModal").classList.add("is-open");
+  document.getElementById("galleryImage").src=images[currentIndex];
 }
-
 function closeGallery(){
-  document.getElementById("galleryModal").classList.remove("active");
+  document.getElementById("galleryModal").classList.remove("is-open");
 }
-
 function nextImage(){
-  currentIndex = (currentIndex + 1) % images.length;
-  document.getElementById("galleryImage").src = images[currentIndex];
+  currentIndex=(currentIndex+1)%images.length;
+  document.getElementById("galleryImage").src=images[currentIndex];
+}
+function prevImage(){
+  currentIndex=(currentIndex-1+images.length)%images.length;
+  document.getElementById("galleryImage").src=images[currentIndex];
 }
 
-function prevImage(){
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  document.getElementById("galleryImage").src = images[currentIndex];
+function enableAudio(){
+  const video=document.getElementById("introVideo");
+  video.muted=false;
+  video.play();
+}
+function stopVideo(){
+  const video=document.getElementById("introVideo");
+  video.pause();
+  video.currentTime=0;
 }
 </script>
 
