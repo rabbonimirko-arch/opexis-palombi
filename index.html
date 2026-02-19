@@ -158,6 +158,55 @@ footer{
   font-size:10px;
   color:#94a3b8;
 }
+
+/* ===== GALLERIA (AGGIUNTA) ===== */
+.gallery-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.gallery-modal.active{display:flex;}
+
+.gallery-box{
+  width:min(520px,95vw);
+  background:#000;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.gallery-box img{
+  width:100%;
+  max-height:65vh;
+  object-fit:contain;
+}
+
+.gallery-controls{
+  display:flex;
+  gap:8px;
+  padding:10px;
+}
+.gallery-controls button{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:999px;
+  background:#111;
+  color:#fff;
+  cursor:pointer;
+}
+
+.gallery-close{
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:20px;
+  color:#fff;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -178,7 +227,7 @@ footer{
   <img src="profilo.jpeg" alt="Serena Palombi" class="profile-photo">
 
   <div class="meta">
-    <strong>CARD STANDARD</strong><br><br>
+   
     Email: <a href="mailto:serena.palombi.88@gmail.com">serena.palombi.88@gmail.com</a><br>
     Email (azienda): <a href="mailto:serenaeantoniosrls@gmail.com">serenaeantoniosrls@gmail.com</a><br>
     Telefono: <a href="tel:+393935115026">3935115026</a>
@@ -195,10 +244,14 @@ footer{
     <a class="btn" href="https://opexis.digital/?ref=32" target="_blank"><span class="dot"></span>I nostri Servizi</a>
     <a class="btn" href="https://opexis.digital/prodotto/aboutme-ai-card-personalizzazione-nome/?ref=32" target="_blank"><span class="dot"></span>About Me AI Card</a>
 
-    <!-- DOWNLOAD CV -->
     <a class="btn" href="Presentazione Serena Palombi.pdf" download="Serena_Palombi_CV.pdf">
       <span class="dot"></span>Scarica CV
     </a>
+
+    <!-- PULSANTE GALLERIA AGGIUNTO -->
+    <button class="btn" onclick="openGallery()">
+      <span class="dot"></span>Galleria
+    </button>
 
     <button class="btn" onclick="saveContact()">
       <span class="dot"></span>Salva in rubrica
@@ -239,21 +292,43 @@ footer{
 
 </div>
 
+<!-- MODAL GALLERIA -->
+<div id="galleryModal" class="gallery-modal">
+  <div class="gallery-close" onclick="closeGallery()">✕</div>
+  <div class="gallery-box">
+    <img id="galleryImage" src="1.jpeg">
+    <div class="gallery-controls">
+      <button onclick="prevImage()">←</button>
+      <button onclick="nextImage()">→</button>
+    </div>
+  </div>
+</div>
+
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
-const video = document.getElementById("introVideo");
+const images=["1.jpeg","2.jpeg","3.jpeg","4.jpeg","5.jpeg","6.jpeg","7.jpeg","8.jpeg"];
+let currentIndex=0;
 
-function enableAudio(){
-  video.muted = false;
-  video.volume = 1;
-  video.play();
+function openGallery(){
+  document.getElementById("galleryModal").classList.add("active");
+  document.getElementById("galleryImage").src=images[currentIndex];
+}
+function closeGallery(){
+  document.getElementById("galleryModal").classList.remove("active");
+}
+function nextImage(){
+  currentIndex=(currentIndex+1)%images.length;
+  document.getElementById("galleryImage").src=images[currentIndex];
+}
+function prevImage(){
+  currentIndex=(currentIndex-1+images.length)%images.length;
+  document.getElementById("galleryImage").src=images[currentIndex];
 }
 
-function stopVideo(){
-  video.pause();
-  video.currentTime = 0;
-}
+const video=document.getElementById("introVideo");
+function enableAudio(){video.muted=false;video.play();}
+function stopVideo(){video.pause();video.currentTime=0;}
 
 function saveContact(){
   const vcf=`BEGIN:VCARD
@@ -264,8 +339,6 @@ TITLE:CARD STANDARD
 TEL;TYPE=CELL:+393935115026
 EMAIL;TYPE=INTERNET:serena.palombi.88@gmail.com
 EMAIL;TYPE=INTERNET:serenaeantoniosrls@gmail.com
-URL:https://www.facebook.com/share/1EDMug2mr1/
-URL:https://www.linkedin.com/in/serena-palombi-4a78a4b9
 NOTE:CARD STANDARD | Opexis ref=32
 END:VCARD`;
 
