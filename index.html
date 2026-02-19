@@ -20,7 +20,6 @@ body{
   justify-content:center;
   align-items:center;
 }
-
 body::before{
   content:"";
   position:fixed;
@@ -86,17 +85,20 @@ header div span:last-child{
   border:2px solid rgba(255,255,255,.6);
 }
 
+/* ===== DISTRIBUZIONE MIGLIORATA ===== */
 .actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  justify-content:center;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:8px;
 }
+
 .btn{
-  display:inline-flex;
+  display:flex;
+  justify-content:center;
   align-items:center;
   gap:6px;
-  padding:8px 14px;
+  padding:10px 12px;
   border-radius:999px;
   border:1px solid var(--line);
   background:rgba(2,6,23,.6);
@@ -104,6 +106,7 @@ header div span:last-child{
   font-size:12px;
   text-decoration:none;
   cursor:pointer;
+  width:100%;
 }
 .dot{
   width:9px;height:9px;border-radius:50%;
@@ -159,7 +162,7 @@ footer{
   color:#94a3b8;
 }
 
-/* ===== GALLERIA (AGGIUNTA) ===== */
+/* ===== GALLERIA ===== */
 .gallery-modal{
   position:fixed;
   inset:0;
@@ -177,13 +180,11 @@ footer{
   border-radius:16px;
   overflow:hidden;
 }
-
 .gallery-box img{
   width:100%;
   max-height:65vh;
   object-fit:contain;
 }
-
 .gallery-controls{
   display:flex;
   gap:8px;
@@ -198,7 +199,6 @@ footer{
   color:#fff;
   cursor:pointer;
 }
-
 .gallery-close{
   position:absolute;
   top:20px;
@@ -227,7 +227,7 @@ footer{
   <img src="profilo.jpeg" alt="Serena Palombi" class="profile-photo">
 
   <div class="meta">
-   
+    <strong>CARD STANDARD</strong><br><br>
     Email: <a href="mailto:serena.palombi.88@gmail.com">serena.palombi.88@gmail.com</a><br>
     Email (azienda): <a href="mailto:serenaeantoniosrls@gmail.com">serenaeantoniosrls@gmail.com</a><br>
     Telefono: <a href="tel:+393935115026">3935115026</a>
@@ -237,25 +237,13 @@ footer{
     <a class="btn" href="tel:+393935115026"><span class="dot"></span>Chiama</a>
     <a class="btn" href="mailto:serena.palombi.88@gmail.com"><span class="dot"></span>Email</a>
     <a class="btn" href="mailto:serenaeantoniosrls@gmail.com"><span class="dot"></span>Email Azienda</a>
-
     <a class="btn" href="https://www.facebook.com/share/1EDMug2mr1/" target="_blank"><span class="dot"></span>Facebook</a>
     <a class="btn" href="https://www.linkedin.com/in/serena-palombi-4a78a4b9" target="_blank"><span class="dot"></span>LinkedIn</a>
-
     <a class="btn" href="https://opexis.digital/?ref=32" target="_blank"><span class="dot"></span>I nostri Servizi</a>
     <a class="btn" href="https://opexis.digital/prodotto/aboutme-ai-card-personalizzazione-nome/?ref=32" target="_blank"><span class="dot"></span>About Me AI Card</a>
-
-    <a class="btn" href="Presentazione Serena Palombi.pdf" download="Serena_Palombi_CV.pdf">
-      <span class="dot"></span>Scarica CV
-    </a>
-
-    <!-- PULSANTE GALLERIA AGGIUNTO -->
-    <button class="btn" onclick="openGallery()">
-      <span class="dot"></span>Galleria
-    </button>
-
-    <button class="btn" onclick="saveContact()">
-      <span class="dot"></span>Salva in rubrica
-    </button>
+    <a class="btn" href="Presentazione Serena Palombi.pdf" download="Serena_Palombi_CV.pdf"><span class="dot"></span>Scarica CV</a>
+    <button class="btn" onclick="openGallery()"><span class="dot"></span>Galleria</button>
+    <button class="btn" onclick="saveContact()"><span class="dot"></span>Salva in rubrica</button>
   </div>
 </section>
 
@@ -266,7 +254,6 @@ footer{
     <video id="introVideo" autoplay playsinline muted>
       <source src="video_intro.mp4" type="video/mp4">
     </video>
-
     <div class="video-controls">
       <button onclick="enableAudio()">🔊 Attiva audio</button>
       <button onclick="stopVideo()">⏹ Stop</button>
@@ -280,19 +267,13 @@ footer{
   <a href="ai.html">💬 Parla con l’AI</a>
 </section>
 
-<section class="socials">
-  <a class="btn" href="https://www.instagram.com/opexis.digital/" target="_blank"><span class="dot"></span>Opexis IG</a>
-  <a class="btn" href="https://www.facebook.com/profile.php?id=61580851595121" target="_blank"><span class="dot"></span>Opexis FB</a>
-  <a class="btn" href="https://www.linkedin.com/company/opexis/" target="_blank"><span class="dot"></span>LinkedIn</a>
-</section>
-
 <footer>
 © <span id="year"></span> Opexis Digital
 </footer>
 
 </div>
 
-<!-- MODAL GALLERIA -->
+<!-- GALLERIA -->
 <div id="galleryModal" class="gallery-modal">
   <div class="gallery-close" onclick="closeGallery()">✕</div>
   <div class="gallery-box">
